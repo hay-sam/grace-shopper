@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
   if (!req.session.cart) {
     req.session.cart = []
   }
-  console.log(req.session)
+  console.log('im getting', req.session)
   res.status(200).send(req.session.cart)
 })
 
@@ -24,8 +24,8 @@ router.post('/', (req, res, next) => {
   } else {
     cart.push({product: req.body.product, quantity: req.body.quantity})
   }
-  console.log(req.session)
-  res.status(201).send()
+  console.log('pre post', req.session)
+  res.status(201).send(req.session.cart)
 })
 
 router.put('/', (req, res, next) => {
@@ -35,7 +35,7 @@ router.put('/', (req, res, next) => {
     cart[productIndex].quantity = req.body.quantity
   }
   console.log(req.session)
-  res.status(201).send()
+  res.status(201).send(req.session.cart)
 })
 
 router.delete('/', (req, res, next) => {
@@ -45,5 +45,5 @@ router.delete('/', (req, res, next) => {
     delete cart[productIndex]
   }
   console.log(req.session)
-  res.status(201).send()
+  res.status(201).send(req.session.cart)
 })
