@@ -1,5 +1,6 @@
 import React from 'react'
 import CartItem from './cart-item'
+import {Link} from 'react-router-dom'
 
 class CartView extends React.Component {
   constructor() {
@@ -47,6 +48,7 @@ class CartView extends React.Component {
     return (
       <div>
         <h1>Your Cart</h1>
+        <Link to="/">Return to Homepage</Link>
         {this.state.cart.map(product => {
           return <CartItem key={product.id} item={product} />
         })}
