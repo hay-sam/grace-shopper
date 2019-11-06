@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {gotProductsThunk} from '../store/products'
+import ProductItem from './product-item'
 
 /**
  * COMPONENT
@@ -26,13 +27,7 @@ class AllProducts extends React.Component {
         <div className="cereal-container">
           {products.map(product => {
             const productId = product.id
-            return (
-              <div key={productId}>
-                <img className="cereal-img" src={product.imageUrl} />
-                <h3>{product.name}</h3>
-                <button>Click to buy</button>
-              </div>
-            )
+            return <ProductItem key={productId} product={product} />
           })}
         </div>
       </div>
