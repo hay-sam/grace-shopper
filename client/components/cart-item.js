@@ -1,4 +1,5 @@
 import React from 'react'
+import convertToDollars from '../../utils/utils'
 
 const CartItem = props => {
   const item = props.item
@@ -7,8 +8,8 @@ const CartItem = props => {
     <div className="cart-item">
       <h3>{product.name}</h3>
       <img className="cereal-img" src={product.imageUrl} />
-      <p>Price: {product.price}</p>
-      <select>
+      <p>Price: {convertToDollars(product.price)}</p>
+      <select onChange={handleChange} defaultValue={item.quantity}>
         <option value={1}>1</option>
         <option value={2}>2</option>
         <option value={3}>3</option>
@@ -24,5 +25,7 @@ const CartItem = props => {
     </div>
   )
 }
+
+///HANDLE CHANGE
 
 export default CartItem

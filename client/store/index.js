@@ -14,4 +14,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
-export * from './products' //this may or may not be right...
+export * from './products'

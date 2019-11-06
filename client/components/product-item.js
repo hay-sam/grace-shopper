@@ -14,7 +14,7 @@ const ProductItem = props => {
     <div>
       <img className="cereal-img" src={product.imageUrl} />
       <h3>{product.name}</h3>
-      <button onClick={handleClick}>Click to buy</button>
+      <button onClick={handleClick}>Add To Cart</button>
     </div>
   )
 }

@@ -6,7 +6,8 @@ const OrderProduct = db.define('orderProducts', {
     type: Sequelize.INTEGER,
 
     validate: {
-      min: 1
+      min: 1,
+      max: 10
     }
   }
 })
