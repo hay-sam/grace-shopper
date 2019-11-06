@@ -8,7 +8,10 @@ const CartItem = props => {
   const product = item.product
 
   const handleChange = async event => {
-    await props.editCart({product: product, quantity: event.target.value})
+    await props.editCart({
+      product: product,
+      quantity: Number(event.target.value)
+    })
     props.updateCartUI()
   }
 
