@@ -33,9 +33,9 @@ describe('Order model', () => {
       it('is associated with user', () => {
         expect(order.userId).to.be.equal(1)
       })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
-}) // end describe('User model')
+    })
+  })
+})
 
 describe('Order Product model', () => {
   beforeEach(() => {
@@ -69,5 +69,5 @@ describe('Order Product model', () => {
 
       expect(products[0].orderProducts.quantity).to.be.equal(6)
     })
-  }) // end describe('correctPassword')
-}) // end describe('instanceMethods')
+  })
+})

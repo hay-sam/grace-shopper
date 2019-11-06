@@ -9,7 +9,6 @@ router.get('/', (req, res, next) => {
   if (!req.session.cart) {
     req.session.cart = []
   }
-  console.log('im getting', req.session)
   res.status(200).send(req.session.cart)
 })
 
@@ -21,10 +20,12 @@ router.post('/', (req, res, next) => {
   let productIndex = cartProductIndex(cart, req.body.product)
   if (productIndex >= 0) {
     cart[productIndex].quantity += req.body.quantity
+    if (cart[productIndex].quantity > 10) {
+      cart[productIndex].quantity = 10
+    }
   } else {
     cart.push({product: req.body.product, quantity: req.body.quantity})
   }
-  console.log('pre post', req.session)
   res.status(201).send(req.session.cart)
 })
 
@@ -33,17 +34,19 @@ router.put('/', (req, res, next) => {
   let productIndex = cartProductIndex(cart, req.body.product)
   if (productIndex >= 0) {
     cart[productIndex].quantity = req.body.quantity
+    if (cart[productIndex].quantity > 10) {
+      cart[productIndex].quantity = 10
+    }
   }
-  console.log(req.session)
   res.status(201).send(req.session.cart)
 })
 
 router.delete('/', (req, res, next) => {
   let cart = req.session.cart
+  console.log(req.body)
   let productIndex = cartProductIndex(cart, req.body.product)
   if (productIndex >= 0) {
-    delete cart[productIndex]
+    cart.splice(productIndex, 1)
   }
-  console.log(req.session)
   res.status(201).send(req.session.cart)
 })
