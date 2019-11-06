@@ -46,9 +46,9 @@ export const editCart = product => {
   }
 }
 
-export const deleteCart = product => {
+export const deleteProduct = product => {
   return async function(dispatch) {
-    const {data} = await axios.delete('/api/cart', product)
+    const {data} = await axios.delete('/api/cart', {data: product})
     dispatch(deletedProduct(data))
   }
 }

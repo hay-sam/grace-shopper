@@ -1,9 +1,22 @@
 import React from 'react'
 import convertToDollars from '../../utils/utils'
+import {connect} from 'react-redux'
+import {editCart, deleteProduct} from '../store/cart'
 
 const CartItem = props => {
   const item = props.item
   const product = item.product
+
+  const handleChange = async event => {
+    await props.editCart({product: product, quantity: event.target.value})
+    props.updateCartUI()
+  }
+
+  const handleDelete = async event => {
+    await props.deleteProduct(item)
+    props.updateCartUI()
+  }
+
   return (
     <div className="cart-item">
       <h3>{product.name}</h3>
@@ -21,11 +34,16 @@ const CartItem = props => {
         <option value={9}>9</option>
         <option value={10}>10</option>
       </select>
-      <button>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   )
 }
 
-///HANDLE CHANGE
+const mapDispatchToProps = dispatch => ({
+  editCart: product => dispatch(editCart(product)),
+  deleteProduct: product => dispatch(deleteProduct(product))
+})
 
-export default CartItem
+const connectedCartItem = connect(null, mapDispatchToProps)(CartItem)
+
+export default connectedCartItem

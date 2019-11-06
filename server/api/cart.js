@@ -43,9 +43,10 @@ router.put('/', (req, res, next) => {
 
 router.delete('/', (req, res, next) => {
   let cart = req.session.cart
+  console.log(req.body)
   let productIndex = cartProductIndex(cart, req.body.product)
   if (productIndex >= 0) {
-    delete cart[productIndex]
+    cart.splice(productIndex, 1)
   }
   res.status(201).send(req.session.cart)
 })

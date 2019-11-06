@@ -11,9 +11,16 @@ class CartView extends React.Component {
     this.state = {
       totalPrice: 0
     }
+    this.calculateTotalPrice = this.calculateTotalPrice.bind(this)
+    this.updateCartUI = this.updateCartUI.bind(this)
   }
 
   async componentDidMount() {
+    await this.props.getCart()
+    this.calculateTotalPrice()
+  }
+
+  async updateCartUI() {
     await this.props.getCart()
     this.calculateTotalPrice()
   }
@@ -23,7 +30,9 @@ class CartView extends React.Component {
       (accumProduct, item) => accumProduct + item.product.price * item.quantity,
       0
     )
+    console.log('STATE BEFORE: ', this.state)
     this.setState({...this.state, totalPrice: total})
+    console.log('STATE AFTER: ', this.state)
   }
 
   render() {
@@ -32,7 +41,13 @@ class CartView extends React.Component {
         <h1>Your Cart</h1>
         <Link to="/">Return to Homepage</Link>
         {this.props.cart.map(product => {
-          return <CartItem key={product.id} item={product} />
+          return (
+            <CartItem
+              key={product.id}
+              item={product}
+              updateCartUI={this.updateCartUI}
+            />
+          )
         })}
         <h3>Total Price: {convertToDollars(this.state.totalPrice)}</h3>
       </div>
