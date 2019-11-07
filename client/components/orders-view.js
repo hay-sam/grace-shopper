@@ -1,17 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getOrders} from '../store/orders'
+import OrdersItem from './orders-item'
 
 class OrdersView extends React.Component {
   componentDidMount() {
-    this.props.getOrders(1)
+    this.props.getOrders(this.props.match.params.userId)
   }
 
   render() {
+    const orders = this.props.orders
     return (
       <div>
         <h1>These are all your orders!</h1>
-        <p>{this.props.orders[0].totalPrice}</p>
+        {orders.map(order => {
+          return <OrdersItem key={order.id} order={order} />
+        })}
       </div>
     )
   }
