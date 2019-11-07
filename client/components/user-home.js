@@ -1,34 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {getUserThunk} from '../store/user'
 
-/**
- * COMPONENT
- */
-export const UserHome = props => {
-  const {email} = props
+//COMPONENT:
+class UserProfile extends React.Component {
+  componentDidMount() {
+    this.props.getUserThunk()
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
-}
-
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    email: state.user.email
+  render() {
+    const {user} = this.props
+    return (
+      <div>
+        <h2>Hello ${user.email}</h2>
+      </div>
+    )
   }
 }
 
-export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
+const mapState = state => {
+  return {
+    user: state.user
+  }
 }
+
+const mapDispatch = dispatch => ({
+  getUserThunk: arg => dispatch(getUserThunk(arg))
+})
+
+export default connect(mapState, mapDispatch)(UserProfile)
