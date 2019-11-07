@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getUserThunk} from '../store/user'
+import EditProfileForm from './edit-user-profile'
+import {Link, Route} from 'react-router-dom'
 
 //COMPONENT:
 class UserProfile extends React.Component {
@@ -12,7 +14,11 @@ class UserProfile extends React.Component {
     const {user} = this.props
     return (
       <div>
-        <h2>Hello ${user.email}</h2>
+        <h2>Hello {user.email}</h2>
+        <p>phone: {user.phone}</p>
+        <p>address: {user.address}</p>
+        {/* <EditProfileForm/> */}
+        <Link to={`/users/edit-profile/${user.id}`}>Edit Profile Info</Link>
       </div>
     )
   }

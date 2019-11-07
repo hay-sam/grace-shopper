@@ -6,7 +6,8 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import CartView from './components/cart-view'
 import AllProducts from './components/products-home'
-
+import UserProfile from './components/user-profile'
+import EditUserProfile from './components/edit-user-profile'
 /**
  * COMPONENT
  */
@@ -20,7 +21,12 @@ class Routes extends Component {
 
     return (
       <Switch>
+        {/* {(isLoggedIn) ?
+          <Route exact path="/user/profile" component={UserProfile}/> :
+          <Route component={AllProducts} /> } */}
         {/* Routes placed here are available to all visitors */}
+        <Route path="/users/profile" component={UserProfile} />
+        <Route path="/users/edit-profile" component={EditUserProfile} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllProducts} />
