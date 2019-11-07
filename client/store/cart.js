@@ -58,16 +58,19 @@ export const deleteProduct = product => {
   }
 }
 
-export const guestCheckout = totalPrice => {
+export const guestCheckout = (totalPrice, formData) => {
   return async function(dispatch) {
-    await axios.post('/api/cart/checkout/guest', {totalPrice})
+    await axios.post('/api/cart/checkout/guest', {totalPrice, formData})
     dispatch(orderPlaced())
   }
 }
 
-export const userCheckout = (totalPrice, userId) => {
+export const userCheckout = (totalPrice, userId, formData) => {
   return async function(dispatch) {
-    await axios.post(`/api/cart/user/${userId}`, {totalPrice})
+    await axios.post(`/api/cart/checkout/user/${userId}`, {
+      totalPrice,
+      formData
+    })
     dispatch(orderPlaced())
   }
 }

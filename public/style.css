@@ -48,8 +48,9 @@ form div {
   overflow-y: auto;
 }
 
-.checkout-form {
+.checkout-form-col {
   flex: 0 0 50%;
+  margin-right: 10px;
 }
 .order-summary-col {
   display: flex;
@@ -58,4 +59,8 @@ form div {
   border: 2px solid black;
 }
 .order-summary-header {
+}
+.checkout-form {
+  display: flex;
+  flex-direction: column;
 }

@@ -3,7 +3,19 @@ const {Order, User, Product} = require('../db/models/index')
 
 router.post('/guest', async (req, res, next) => {
   try {
-    const order = await Order.create({totalPrice: req.body.totalPrice})
+    console.log(req.body)
+    const formData = req.body.formData
+    const address = `${formData.streetAddress}, ${formData.city}, ${
+      formData.state
+    }, ${formData.zipcode}`
+    const order = await Order.create({
+      totalPrice: req.body.totalPrice,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phoneNumber: formData.phoneNumber,
+      email: formData.email,
+      address
+    })
     await req.session.cart.forEach(async item => {
       const product = await Product.findByPk(item.product.id)
       await order.addProduct(product, {through: {quantity: item.quantity}})
@@ -15,7 +27,16 @@ router.post('/guest', async (req, res, next) => {
   }
 })
 
-router.post('/user/:userId', async (req, res, next) => {
+const isSameUser = (req, res, next) => {
+  console.log(req.params.userId, req.user.id)
+  if (Number(req.params.userId) !== Number(req.user.id)) {
+    res.status(403).send()
+  } else {
+    next()
+  }
+}
+
+router.post('/user/:userId', isSameUser, async (req, res, next) => {
   try {
     const order = await Order.create({
       totalPrice: req.body.totalPrice,

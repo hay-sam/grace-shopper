@@ -4,13 +4,24 @@ import convertToDollars from '../../utils/utils'
 import {guestCheckout, userCheckout, getCart} from '../store/cart'
 import {connect} from 'react-redux'
 import CheckoutItem from './checkout-item'
+import CheckoutForm from './checkout-form'
 
 class Checkout extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      totalPrice: 0
+      totalPrice: 0,
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipcode: ''
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   async componentDidMount() {
     await this.props.getCart()
@@ -24,22 +35,37 @@ class Checkout extends React.Component {
     this.setState({...this.state, totalPrice: total})
   }
 
-  async handleClick() {
+  async handleSubmit(event) {
+    event.preventDefault()
     if (this.props.isLoggedIn) {
-      await this.props.userCheckout(this.state.totalPrice, this.props.user.id)
+      await this.props.userCheckout(
+        this.state.totalPrice,
+        this.props.user.id,
+        this.state
+      )
     } else {
-      await this.props.guestCheckout(this.state.totalPrice)
+      await this.props.guestCheckout(this.state.totalPrice, this.state)
     }
     this.props.history.push('/')
   }
-
+  handleChange(event) {
+    this.setState({...this.state, [event.target.name]: event.target.value})
+  }
   render() {
     return (
       <div>
         <Link to="/cart">Return to Cart</Link>
         <h2>Checkout</h2>
         <div className="checkout-split">
-          <div className="checkout-form" />
+          <div className="checkout-form-col">
+            <CheckoutForm
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              state={this.state}
+            />
+            <h3>Order total: {convertToDollars(this.state.totalPrice)}</h3>
+          </div>
+
           <div className="order-summary-col">
             <h3 className="order-summary-header">Order Summary</h3>
             <div className="checkout-items-container">
@@ -49,9 +75,6 @@ class Checkout extends React.Component {
             </div>
           </div>
         </div>
-
-        <h3>Order total: {convertToDollars(this.state.totalPrice)}</h3>
-        <button onClick={() => this.handleClick()}>Place Order</button>
       </div>
     )
   }
@@ -63,8 +86,10 @@ const mapStateToProps = state => ({
   user: state.user
 })
 const mapDispatchToProps = dispatch => ({
-  guestCheckout: totalPrice => dispatch(guestCheckout(totalPrice)),
-  userCheckout: (totalPrice, id) => dispatch(userCheckout(totalPrice, id)),
+  guestCheckout: (totalPrice, formData) =>
+    dispatch(guestCheckout(totalPrice, formData)),
+  userCheckout: (totalPrice, id, formData) =>
+    dispatch(userCheckout(totalPrice, id, formData)),
   getCart: () => dispatch(getCart())
 })
 
