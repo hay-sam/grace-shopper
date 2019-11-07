@@ -36,3 +36,26 @@ form div {
   background-color: lightgrey;
   margin: 32px;
 }
+.checkout-item {
+  border: 2px black;
+  background-color: lightgrey;
+}
+.checkout-split {
+  display: flex;
+}
+.checkout-items-container {
+  height: 60vh;
+  overflow-y: auto;
+}
+
+.checkout-form {
+  flex: 0 0 50%;
+}
+.order-summary-col {
+  display: flex;
+  flex-direction: column;
+  background-color: #3b8ea5;
+  border: 2px solid black;
+}
+.order-summary-header {
+}

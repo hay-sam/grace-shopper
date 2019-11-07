@@ -5,6 +5,8 @@ const cartProductIndex = (cart, product) => {
   return cart.findIndex(elem => elem.product.id === product.id)
 }
 
+router.use('/checkout', require('./checkout'))
+
 router.get('/', (req, res, next) => {
   if (!req.session.cart) {
     req.session.cart = []
@@ -50,3 +52,5 @@ router.delete('/', (req, res, next) => {
   }
   res.status(201).send(req.session.cart)
 })
+
+router.use('/checkout', require('./checkout'))
