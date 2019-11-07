@@ -19,11 +19,10 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId/orders', async (req, res, next) => {
   try {
-    const user = await User.findOne({
-      where: {id: req.params.userId},
-      include: [{model: Order}]
+    const orders = await Order.findAll({
+      where: {userId: req.params.userId}
     })
-    res.json(user)
+    res.json(orders)
   } catch (err) {
     next(err)
   }

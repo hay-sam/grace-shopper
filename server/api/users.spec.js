@@ -47,7 +47,6 @@ describe('User routes', () => {
       })
       await order.setUser(cody)
       await order.addProduct(sampleProduct, {through: {quantity: 6}})
-      console.log(order)
     })
 
     it('GET /api/users/:userId/orders', async () => {
@@ -55,10 +54,8 @@ describe('User routes', () => {
         .get('/api/users/1/orders')
         .expect(200)
 
-      expect(res.body).to.be.an('object')
-      expect(res.body.email).to.be.equal('cody@puppybook.com')
-      expect(res.body.orders).to.be.an('array')
-      expect(res.body.orders[0].userId).to.be.equal(1)
+      expect(res.body).to.be.an('array')
+      expect(res.body[0].userId).to.be.equal(1)
     })
   })
 }) // end describe('User routes')
