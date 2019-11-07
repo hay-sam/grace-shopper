@@ -10,7 +10,6 @@ class OrdersView extends React.Component {
 
   render() {
     const orders = this.props.orders
-    console.log(orders)
     return (
       <div>
         <h1>These are all your orders!</h1>

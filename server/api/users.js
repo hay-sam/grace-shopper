@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
 })
 
 const isMe = (req, res, next) => {
-  if (req.params.userId === req.user.id) {
+  if (Number(req.params.userId) === Number(req.user.id)) {
     next()
   } else {
     res.status(403).send("Where do you think you're going?")
