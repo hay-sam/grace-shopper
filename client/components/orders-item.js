@@ -1,19 +1,36 @@
 import React from 'react'
 import {withRouter} from 'react-router'
+import OrderProductItem from './order-product-item'
 
-const OrdersItem = props => {
-  const order = props.order
-
-  const handleClick = orderId => {
-    props.history.push(`/users/:userId/orders/${orderId}`)
+class OrdersItem extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showDetails: false
+    }
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  return (
-    <div>
-      <h2>Order Number: {order.id}</h2>
-      <button onClick={() => handleClick(order.id)}>View Order Details</button>
-    </div>
-  )
+  handleClick() {
+    this.setState(currentState => ({showDetails: !currentState.showDetails}))
+  }
+
+  render() {
+    const order = this.props.order
+    return (
+      <div>
+        <h2>Order Number: {order.id}</h2>
+        <button onClick={() => this.handleClick(order.id)}>
+          View Order Details
+        </button>
+        {this.state.showDetails
+          ? order.products.map(product => (
+              <OrderProductItem key={product.id} product={product} />
+            ))
+          : null}
+      </div>
+    )
+  }
 }
 
 export default withRouter(OrdersItem)
