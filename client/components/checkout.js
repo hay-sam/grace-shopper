@@ -67,7 +67,7 @@ class Checkout extends React.Component {
           </div>
 
           <div className="order-summary-col">
-            <h3 className="order-summary-header">Order Summary</h3>
+            <span className="order-summary-header">Order Summary</span>
             <div className="checkout-items-container">
               {this.props.cart.map(entry => (
                 <CheckoutItem key={entry.product.id} item={entry} />

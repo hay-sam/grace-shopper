@@ -7,10 +7,16 @@ const CheckoutItem = props => {
 
   return (
     <div className="checkout-item">
-      <h3>{product.name}</h3>
-      <img className="cereal-img" src={product.imageUrl} />
-      <p>Price: {convertToDollars(product.price * item.quantity)}</p>
-      <p>Quantity: {item.quantity}</p>
+      <div className="checkout-item-header">
+        <span>{product.name}</span>
+      </div>
+      <div className="checkout-item-content">
+        <img className="cereal-img" src={product.imageUrl} />
+        <div className="checkout-item-info">
+          <p>Price: {convertToDollars(product.price * item.quantity)}</p>
+          <p>Quantity: {item.quantity}</p>
+        </div>
+      </div>
     </div>
   )
 }
