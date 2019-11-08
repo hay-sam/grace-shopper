@@ -18,16 +18,21 @@ class OrdersItem extends React.Component {
   render() {
     const order = this.props.order
     return (
-      <div>
-        <h2>Order Number: {order.id}</h2>
-        <button onClick={() => this.handleClick(order.id)}>
-          View Order Details
-        </button>
-        {this.state.showDetails
-          ? order.products.map(product => (
+      <div className="orders-item">
+        <div className="orders-header">
+          <h2>Order Number: {order.id}</h2>
+          <p onClick={() => this.handleClick(order.id)} className="orders-btn">
+            View Order Details
+          </p>
+        </div>
+        {this.state.showDetails ? (
+          <div className="orders-details">
+            {order.products.map(product => (
               <OrderProductItem key={product.id} product={product} />
-            ))
-          : null}
+            ))}
+            <h3>Total Price: {order.totalPrice}</h3>
+          </div>
+        ) : null}
       </div>
     )
   }

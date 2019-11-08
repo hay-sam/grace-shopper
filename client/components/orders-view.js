@@ -11,8 +11,8 @@ class OrdersView extends React.Component {
   render() {
     const orders = this.props.orders
     return (
-      <div>
-        <h1>These are all your orders!</h1>
+      <div className="orders-view">
+        <h1>Order History</h1>
         {orders.map(order => {
           return <OrdersItem key={order.id} order={order} />
         })}

@@ -4,7 +4,7 @@ const OrderProductItem = props => {
   const product = props.product
   return (
     <div>
-      <p>Name: {product.name}</p>
+      <h3>{product.name}</h3>
       <p>Price: {product.price}</p>
       <p>Quantity: {product.orderProducts.quantity}</p>
     </div>
