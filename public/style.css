@@ -34,7 +34,36 @@ form div {
 .cart-item {
   border: 2px black;
   background-color: lightgrey;
-  margin: 32px;
+  margin: 10px;
+}
+
+.cart-item-img {
+  height: 30vh;
+}
+.cart-content {
+  display: flex;
+}
+.cart-items-col {
+  flex: 0 0 80%;
+  background-color: #3b8ea5;
+}
+.cart-item-header {
+  background-color: white;
+  font-weight: 500;
+  font-size: large;
+  padding: 10px;
+}
+.cart-item-content {
+  display: flex;
+}
+
+.cart-item-info {
+  margin-left: 10px;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
 }
 .checkout-item {
   background-color: lightgrey;

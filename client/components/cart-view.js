@@ -41,19 +41,27 @@ class CartView extends React.Component {
   render() {
     return (
       <div>
-        <h1>Your Cart</h1>
+        <h3>Your Cart</h3>
         <Link to="/">Return to Homepage</Link>
-        {this.props.cart.map(product => {
-          return (
-            <CartItem
-              key={product.id}
-              item={product}
-              updateCartUI={this.updateCartUI}
-            />
-          )
-        })}
-        <h3>Total Price: {convertToDollars(this.state.totalPrice)}</h3>
-        <button onClick={this.handleClick}>Checkout</button>
+        <div className="cart-content">
+          <div className="cart-items-col">
+            <div className="cart-items">
+              {this.props.cart.map(product => {
+                return (
+                  <CartItem
+                    key={product.id}
+                    item={product}
+                    updateCartUI={this.updateCartUI}
+                  />
+                )
+              })}
+            </div>
+          </div>
+          <div className="cart-info-col">
+            <h3>Total Price: {convertToDollars(this.state.totalPrice)}</h3>
+            <button onClick={this.handleClick}>Proceed to Checkout</button>
+          </div>
+        </div>
       </div>
     )
   }
