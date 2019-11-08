@@ -8,6 +8,7 @@ import CartView from './components/cart-view'
 import AllProducts from './components/products-home'
 import UserProfile from './components/user-profile'
 import EditUserProfile from './components/edit-user-profile'
+import Checkout from './components/checkout'
 import OrdersView from './components/orders-view'
 
 /**
@@ -33,6 +34,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllProducts} />
         <Route path="/cart" component={CartView} />
+        <Route path="/checkout" component={Checkout} />
         <Route path="/users/:userId/orders" component={OrdersView} />
         <Route component={AllProducts} />
       </Switch>
