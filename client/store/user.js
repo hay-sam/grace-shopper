@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
+const REMOVE_USER = 'REMOVE_USER' //remove user should be an admin only action
 
 /**
  * INITIAL STATE
@@ -21,6 +21,25 @@ const removeUser = () => ({type: REMOVE_USER})
 /**
  * THUNK CREATORS
  */
+export const editUserThunk = (userId, arg) => async dispatch => {
+  try {
+    console.log('typeof userId', typeof userId)
+    const {data} = await axios.put(`/api/users/edit-profile/${userId}`, arg)
+    dispatch(getUser(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getUserThunk = userId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/users/${userId}`)
+    dispatch(getUser(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')

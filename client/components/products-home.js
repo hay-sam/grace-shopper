@@ -7,11 +7,6 @@ import ProductItem from './product-item'
  * COMPONENT
  */
 class AllProducts extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.props = props
-  // }
-
   componentDidMount() {
     this.props.gotProductsThunk()
   }
