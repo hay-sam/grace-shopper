@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, Product} = require('../db/models')
+module.exports = router
 
 //router for when a user wants to view their own profile:
 router.get('/:id', async (req, res, next) => {
@@ -23,8 +24,27 @@ router.put('/edit-profile/:id', async (req, res, next) => {
     await user.update(newProperties, {where: {id: req.params.id}})
     res.json(user)
   } catch (err) {
+    console.error(err)
     next(err)
   }
 })
 
-module.exports = router
+const isMe = (req, res, next) => {
+  if (Number(req.params.userId) === Number(req.user.id)) {
+    next()
+  } else {
+    res.status(403).send("Where do you think you're going?")
+  }
+}
+
+router.get('/:userId/orders', isMe, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {userId: req.params.userId},
+      include: [{model: Product}]
+    })
+    res.json(orders)
+  } catch (err) {
+    next(err)
+  }
+})
