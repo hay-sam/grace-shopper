@@ -26,7 +26,7 @@ class Routes extends Component {
           <Route component={AllProducts} /> } */}
         {/* Routes placed here are available to all visitors */}
         <Route path="/users/profile" component={UserProfile} />
-        <Route path="/users/edit-profile" component={EditUserProfile} />
+        <Route path="/users/edit-profile/:userid" component={EditUserProfile} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllProducts} />
