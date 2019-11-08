@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, Product} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -11,6 +11,26 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'email']
     })
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+const isMe = (req, res, next) => {
+  if (Number(req.params.userId) === Number(req.user.id)) {
+    next()
+  } else {
+    res.status(403).send("Where do you think you're going?")
+  }
+}
+
+router.get('/:userId/orders', isMe, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {userId: req.params.userId},
+      include: [{model: Product}]
+    })
+    res.json(orders)
   } catch (err) {
     next(err)
   }
