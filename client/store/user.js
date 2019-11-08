@@ -24,7 +24,7 @@ const removeUser = () => ({type: REMOVE_USER})
 export const editUserThunk = (userId, arg) => async dispatch => {
   try {
     console.log('typeof userId', typeof userId)
-    const {data} = await axios.put(`/api/users/edit-profile/1`, arg)
+    const {data} = await axios.put(`/api/users/edit-profile/${userId}`, arg)
     dispatch(getUser(data))
   } catch (err) {
     console.error(err)
