@@ -27,9 +27,9 @@ router.get('/', async (req, res, next) => {
 })
 
 //router for when a user wants to view their own profile:
-router.get('/:id', isMe, async (req, res, next) => {
+router.get('/:userId', isMe, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.userId)
     res.json(user) //returns the users as an object that contains email, password, address, etc.
   } catch (err) {
     next(err)
@@ -37,9 +37,9 @@ router.get('/:id', isMe, async (req, res, next) => {
 })
 
 //router for when a user wants to edit their info (address/phone, etc.)
-router.put('/edit-profile/:id', isMe, async (req, res, next) => {
+router.put('/edit-profile/:userId', isMe, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.userId)
     const newProperties = {
       address: req.body.address,
       email: req.body.email,
