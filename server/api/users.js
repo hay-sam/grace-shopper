@@ -45,7 +45,7 @@ router.put('/edit-profile/:id', isMe, async (req, res, next) => {
       email: req.body.email,
       phone: req.body.phone
     }
-    await user.update(newProperties, {where: {id: req.params.id}})
+    await user.update(newProperties)
     res.json(user)
   } catch (err) {
     console.error(err)
