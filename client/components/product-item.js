@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addToCart} from '../store/cart'
 import convertToDollars from '../../utils/utils'
+import {Link} from 'react-router-dom'
 
 const ProductItem = props => {
   let product = props.product
@@ -18,6 +19,12 @@ const ProductItem = props => {
       <span className="product-price">
         Price: {convertToDollars(product.price)}
       </span>
+      <Link
+        style={{textDecoration: 'underline', color: 'blue'}}
+        to={`/products/detailed-view/${product.id}`}
+      >
+        More details
+      </Link>
       <button onClick={handleClick} className="add-to-cart">
         Add To Cart
       </button>

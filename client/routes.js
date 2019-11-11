@@ -10,6 +10,7 @@ import UserProfile from './components/user-profile'
 import EditUserProfile from './components/edit-user-profile'
 import Checkout from './components/checkout'
 import OrdersView from './components/orders-view'
+import detailedProduct from './components/detailed-product'
 
 /**
  * COMPONENT
@@ -28,7 +29,12 @@ class Routes extends Component {
           <Route exact path="/user/profile" component={UserProfile}/> :
           <Route component={AllProducts} /> } */}
         {/* Routes placed here are available to all visitors */}
-        <Route path="/products" component={AllProducts} />
+        <Route exact path="/products" component={AllProducts} />
+        <Route
+          exact
+          path="/products/detailed-view/:productid"
+          component={detailedProduct}
+        />
         <Route path="/users/profile" component={UserProfile} />
         <Route path="/users/edit-profile/:userid" component={EditUserProfile} />
         <Route path="/login" component={Login} />
