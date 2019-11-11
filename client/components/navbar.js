@@ -17,10 +17,10 @@ const Navbar = ({handleClick, isLoggedIn, id}) => (
 
             <Link to="/cart">My Cart</Link>
             <Link to="/users/profile">My Profile</Link>
+            <Link to={`/users/${id}/orders`}>My Orders</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-            <Link to={`/users/${id}/orders`}>My Orders</Link>
           </div>
         ) : (
           <div>

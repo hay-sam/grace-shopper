@@ -14,7 +14,10 @@ const UserProfile = props => {
       <h3>
         Stay up to date with the Seriously Cereal Store's latest and greatest!
       </h3>
-      <Link to={`/users/edit-profile/${user.id}`}>
+      <Link
+        style={{textDecoration: 'underline', color: 'blue'}}
+        to={`/users/edit-profile/${user.id}`}
+      >
         Click Here to Edit Profile Info
       </Link>
     </div>
