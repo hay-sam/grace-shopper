@@ -46,7 +46,7 @@ class Checkout extends React.Component {
     } else {
       await this.props.guestCheckout(this.state.totalPrice, this.state)
     }
-    this.props.history.push('/')
+    this.props.history.push('/products')
   }
   handleChange(event) {
     this.setState({...this.state, [event.target.name]: event.target.value})

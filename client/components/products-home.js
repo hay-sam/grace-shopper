@@ -21,7 +21,13 @@ class AllProducts extends React.Component {
         <div className="cereal-container">
           {products.map(product => {
             const productId = product.id
-            return <ProductItem key={productId} product={product} />
+            return (
+              <ProductItem
+                key={productId}
+                product={product}
+                className="product-item"
+              />
+            )
           })}
         </div>
       </div>

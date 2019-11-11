@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {addToCart} from '../store/cart'
+import convertToDollars from '../../utils/utils'
 
 const ProductItem = props => {
   let product = props.product
@@ -11,10 +12,15 @@ const ProductItem = props => {
   }
 
   return (
-    <div>
-      <img className="cereal-img" src={product.imageUrl} />
-      <h3>{product.name}</h3>
-      <button onClick={handleClick}>Add To Cart</button>
+    <div className="product-item">
+      <span className="product-name">{product.name}</span>
+      <img className="product-img" src={product.imageUrl} />
+      <span className="product-price">
+        Price: {convertToDollars(product.price)}
+      </span>
+      <button onClick={handleClick} className="add-to-cart">
+        Add To Cart
+      </button>
     </div>
   )
 }

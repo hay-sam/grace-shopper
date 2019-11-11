@@ -40,9 +40,9 @@ class CartView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="cart-view">
         <h3>Your Cart</h3>
-        <Link to="/">Return to Homepage</Link>
+        <Link to="/products">Return to Homepage</Link>
         <div className="cart-content">
           <div className="cart-items-col">
             <div className="cart-items">
@@ -58,7 +58,7 @@ class CartView extends React.Component {
             </div>
           </div>
           <div className="cart-info-col">
-            <h3>Total Price: {convertToDollars(this.state.totalPrice)}</h3>
+            <h3>Order Total: {convertToDollars(this.state.totalPrice)}</h3>
             <button onClick={this.handleClick}>Proceed to Checkout</button>
           </div>
         </div>
