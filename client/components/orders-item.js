@@ -1,6 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router'
 import OrderProductItem from './order-product-item'
+import convertToDollars from '../../utils/utils'
 
 class OrdersItem extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class OrdersItem extends React.Component {
             {order.products.map(product => (
               <OrderProductItem key={product.id} product={product} />
             ))}
-            <h3>Total Price: {order.totalPrice}</h3>
+            <h3>Total Price: {convertToDollars(order.totalPrice)}</h3>
           </div>
         ) : null}
       </div>
