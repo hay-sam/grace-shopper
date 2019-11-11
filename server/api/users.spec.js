@@ -32,7 +32,9 @@ describe('User routes', () => {
     })
   }) // end describe('/api/users')
 
-  xdescribe('/api/users/:userId/orders', () => {
+  describe('/api/users/:userId/orders', () => {
+    const agent = request.agent(app)
+
     beforeEach(async () => {
       const cody = await User.create({
         email: 'cody@puppybook.com',
@@ -49,10 +51,12 @@ describe('User routes', () => {
       await order.addProduct(sampleProduct, {through: {quantity: 6}})
     })
 
-    it('GET /api/users/:userId/orders', async () => {
-      const res = await request(app)
-        .get('/api/users/1/orders')
-        .expect(200)
+    it('GET /api/users/:userId/orders if request is sent by that user', async () => {
+      await agent
+        .post('/auth/login')
+        .send({email: 'cody@puppybook.com', password: 'bones'})
+
+      const res = await agent.get('/api/users/1/orders').expect(200)
 
       expect(res.body).to.be.an('array')
       expect(res.body[0].userId).to.be.equal(1)
