@@ -13,7 +13,7 @@ describe('User routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
+  xdescribe('/api/users/', () => {
     const codysEmail = 'cody@puppybook.com'
 
     beforeEach(() => {
@@ -32,7 +32,7 @@ describe('User routes', () => {
     })
   }) // end describe('/api/users')
 
-  describe('/api/users/:userId/orders', () => {
+  xdescribe('/api/users/:userId/orders', () => {
     beforeEach(async () => {
       const cody = await User.create({
         email: 'cody@puppybook.com',
