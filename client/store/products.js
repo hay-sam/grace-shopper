@@ -11,10 +11,10 @@ const GET_PRODUCTS = 'GET_PRODUCTS'
 const initialState = []
 
 /**
- * ACTION CREATORS
+ * ACTION CREATORS (exported for testing)
  */
-const gotProductsAction = productsArr => ({
-  type: GET_PRODUCTS,
+export const gotProductsAction = productsArr => ({
+  type: 'GET_PRODUCTS',
   products: productsArr
 })
 
@@ -25,7 +25,6 @@ const gotProductsAction = productsArr => ({
 export const gotProductsThunk = () => {
   return async dispatch => {
     const {data} = await axios.get('api/products')
-    console.log('in the thunk:', data)
     dispatch(gotProductsAction(data))
   }
 }

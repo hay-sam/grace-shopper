@@ -1,33 +1,51 @@
-//come back to this later...
+import {expect} from 'chai'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import configureMockStore from 'redux-mock-store'
+import thunkMiddleware from 'redux-thunk'
+import {gotProductsAction, gotProductsThunk} from './products'
 
-// import {expect} from 'chai'
-// import axios from 'axios'
-// import {gotProductsThunk} from './products'
-// import MockAdapter from 'axios-mock-adapter'
-// import configureMockStore from 'redux-mock-store'
-// import thunkMiddleware from 'redux-thunk'
+const middlewares = [thunkMiddleware]
+const mockStore = configureMockStore(middlewares)
 
-// const middlewares = [thunkMiddleware]
-// const mockStore = configureMockStore(middlewares)
+describe('`gotProductsAction` action creator', () => {
+  const productsArr = [
+    {name: 'coco puffs', price: 400},
+    {name: 'cheerios', price: 350}
+  ]
+  const gotProducts = gotProductsAction(productsArr)
 
-// describe('thunk creators', () => {
-//   let store
-//   let mockAxios
+  it('creates an object with `type` and `products`', () => {
+    expect(gotProducts.type).to.equal('GET_PRODUCTS')
+    expect(gotProducts.products[1].name).to.equal('cheerios')
+  })
+})
 
-//   const initialState = {products: {}}
+describe('`gotProductsThunk` thunk creator', () => {
+  let store
+  let mockAxios
 
-//   beforeEach(() => {
-//     mockAxios = new MockAdapter(axios)
-//     store = mockStore(initialState)
-//   })
+  const initialState = {products: []}
 
-//   afterEach(() => {
-//     mockAxios.restore()
-//     store.clearActions()
-//   })
-//   describe('gotProductsThunk', () => {
-//     it('eventually dispatches the GET PRODUCTS action', async () => {
+  beforeEach(() => {
+    mockAxios = new MockAdapter(axios)
+    store = mockStore(initialState)
+  })
 
-//     })
-//   })
-// })
+  afterEach(() => {
+    mockAxios.restore()
+    store.clearActions()
+  })
+
+  it('eventually dispatches the `GET_PRODUCTS` action', async () => {
+    const productsArr = [
+      {name: 'coco puffs', price: 400},
+      {name: 'cheerios', price: 350}
+    ]
+    mockAxios.onGet('/api/products').replyOnce(200, productsArr)
+    await store.dispatch(gotProductsThunk())
+    const actions = store.getActions()
+    expect(actions[0].type).to.be.equal('GET_PRODUCTS')
+    expect(actions[0].products).to.be.deep.equal(productsArr)
+  })
+})

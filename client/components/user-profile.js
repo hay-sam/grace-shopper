@@ -1,25 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getUserThunk} from '../store/user'
 import {Link} from 'react-router-dom'
 
 //COMPONENT:
-class UserProfile extends React.Component {
-  // componentDidMount() {
-  //   this.props.getUserThunk(this.props.user.id)
-  // }
+const UserProfile = props => {
+  const {user} = props
 
-  render() {
-    const {user} = this.props
-    return (
-      <div>
-        <h2>Hello {user.email}</h2>
-        <p>phone: {user.phone}</p>
-        <p>address: {user.address}</p>
-        <Link to={`/users/edit-profile/${user.id}`}>Edit Profile Info</Link>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h2>Hello {user.email}</h2>
+      <p>phone: {user.phone ? user.phone : 'No phone on file'}</p>
+      <p>address: {user.address ? user.address : 'No address on file'}</p>
+      <h3>
+        Stay up to date with the Seriously Cereal Store's latest and greatest!
+      </h3>
+      <Link to={`/users/edit-profile/${user.id}`}>
+        Click Here to Edit Profile Info
+      </Link>
+    </div>
+  )
 }
 
 const mapState = state => {
@@ -28,8 +27,4 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => ({
-  getUserThunk: arg => dispatch(getUserThunk(arg))
-})
-
-export default connect(mapState, mapDispatch)(UserProfile)
+export default connect(mapState, null)(UserProfile)

@@ -31,8 +31,10 @@ class EditProfileForm extends React.Component {
         <label htmlFor="email">email</label>
         <input
           name="email"
+          type="email"
           value={this.state.email}
           onChange={this.handleChange}
+          required
         />
 
         <label htmlFor="address">address</label>
@@ -40,6 +42,7 @@ class EditProfileForm extends React.Component {
           name="address"
           value={this.state.address}
           onChange={this.handleChange}
+          required
         />
 
         <label htmlFor="phone">phone</label>
@@ -47,6 +50,7 @@ class EditProfileForm extends React.Component {
           name="phone"
           value={this.state.phone}
           onChange={this.handleChange}
+          required
         />
 
         <button type="submit">Save Changes</button>
