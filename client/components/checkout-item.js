@@ -11,7 +11,7 @@ const CheckoutItem = props => {
         <span>{product.name}</span>
       </div>
       <div className="checkout-item-content">
-        <img className="cereal-img" src={product.imageUrl} />
+        <img className="checkout-item-img" src={product.imageUrl} />
         <div className="checkout-item-info">
           <p>Price: {convertToDollars(product.price * item.quantity)}</p>
           <p>Quantity: {item.quantity}</p>

@@ -4,31 +4,36 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, id}) => (
   <div>
-    <h1>The Seriously Cereal Shop</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
+    <div className="nav-content">
+      <Link to="/">
+        <h1>The Seriously Cereal Shop</h1>
+      </Link>
+      <nav>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
 
-          <Link to="/cart">My Cart</Link>
-          <Link to="/users/profile">My Profile</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/users/:userId/orders">My Orders</Link>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
+            <Link to="/cart">My Cart</Link>
+            <Link to="/users/profile">My Profile</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+            <Link to={`/users/${id}/orders`}>My Orders</Link>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
 
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">My Cart</Link>
-        </div>
-      )}
-    </nav>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/cart">My Cart</Link>
+          </div>
+        )}
+      </nav>
+    </div>
+
     <hr />
   </div>
 )
@@ -38,7 +43,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    id: state.user.id
   }
 }
 

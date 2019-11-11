@@ -9,15 +9,50 @@ async function seed() {
 
   const products = await Promise.all([
     Product.create({
-      name: 'Din-Os',
-      description: 'For building strong dinosaur bones and muscles!',
-      price: 2
-    }),
-    Product.create({
       name: 'Unicorn Puffs',
       description:
         'Includes all the vitamins and minerals for growing unicorns',
-      price: 4
+      price: 400
+    }),
+    Product.create({
+      name: 'Honey Nut Cheerios',
+      description: 'For building strong dinosaur bones and muscles!',
+      price: 249,
+      imageUrl:
+        'https://images-na.ssl-images-amazon.com/images/I/51TaBLzGG3L._AC_SY400_.jpg'
+    }),
+    Product.create({
+      name: 'Kix',
+      description: 'Kid Tested, Mother Approved',
+      price: 399,
+      imageUrl:
+        'https://images-na.ssl-images-amazon.com/images/I/51q%2BNKNBzSL._SX425_.jpg'
+    }),
+    Product.create({
+      name: 'Wheaties',
+      description: 'The Breakfast of Champions',
+      price: 199,
+      imageUrl:
+        'https://images-na.ssl-images-amazon.com/images/I/81iMOFYh7RL._SY550_.jpg'
+    }),
+    Product.create({
+      name: 'Din-Os',
+      description: 'For building strong dinosaur bones and muscles!',
+      price: 200
+    }),
+    Product.create({
+      name: 'Rice Krispies',
+      description: 'Snap! Crackle! Pop!',
+      price: 450,
+      imageUrl:
+        'https://www.dollargeneral.com/media/catalog/product/cache/image/700x700/e9c3970ab036de70892d86c6d221abfe/0/0/00834601_kellogg_rice_krispies_cereal_12oz_right_facing_1.jpg'
+    }),
+    Product.create({
+      name: 'Lucky Charms',
+      description: 'They’re Magically Delicious!',
+      price: 150,
+      imageUrl:
+        'https://ship.ralphs.com/img/Products/500/General-Mills/General-Mills-Lucky-Charms-with-Magical-Unicorn-Marshmallows-016000121836.jpg'
     })
   ])
 
