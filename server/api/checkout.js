@@ -2,6 +2,30 @@ const router = require('express').Router()
 const {Order, User, Product} = require('../db/models/index')
 const stripe = require('stripe')(process.env.STRIPE_KEY)
 
+// const stripeCheckout = async (req, res, next) => {
+//   try {
+//     const line_items = req.session.cart.map(item => ({
+//       name: item.product.name,
+//       description: item.product.description,
+//       images: [item.product.imageUrl],
+//       amount: item.product.price,
+//       currency: 'usd',
+//       quantity: item.quantity
+//     }))
+
+//     const session = await stripe.checkout.sessions.create({
+//       payment_method_types: ['card'],
+//       line_items,
+//       success_url: process.env.SUCCESS_URL || 'http://localhost:8080/products',
+//       cancel_url: process.env.CANCEL_URL || 'http://localhost:8080/cart'
+//     })
+//     req.CHECKOUT_SESSION_ID = session.id
+//     next()
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
+
 router.post('/stripe', async (req, res, next) => {
   try {
     const line_items = req.session.cart.map(item => ({
