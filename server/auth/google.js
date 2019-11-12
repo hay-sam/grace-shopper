@@ -56,8 +56,13 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   router.get(
     '/callback',
     passport.authenticate('google', {
-      successRedirect: '/home',
       failureRedirect: '/login'
-    })
+    }),
+    (req, res) => {
+      if (req.user.cart !== null) {
+        req.session.cart = JSON.parse(req.user.cart)
+      }
+      res.redirect('/products')
+    }
   )
 }
