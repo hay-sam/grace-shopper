@@ -56,12 +56,4 @@ router.get('/me', (req, res) => {
   res.json(req.user)
 })
 
-router.use('/google', require('./google'), (req, res) => {
-  console.log('hey there')
-  let cart = req.user.cart
-  if (cart !== null) {
-    let cartParse = JSON.parse(cart)
-    req.session.cart = cartParse
-  }
-  res.json(req.user)
-})
+router.use('/google', require('./google'))
