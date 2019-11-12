@@ -13,6 +13,7 @@ import OrdersView from './components/orders-view'
 import detailedProduct from './components/detailed-product'
 import AdminUsers from './components/admin-users'
 import AdminOrders from './components/admin-orders'
+import NotFound from './components/not-found'
 
 /**
  * COMPONENT
@@ -27,11 +28,8 @@ class Routes extends Component {
 
     return (
       <Switch>
-        {/* {(isLoggedIn) ?
-          <Route exact path="/user/profile" component={UserProfile}/> :
-          <Route component={AllProducts} /> } */}
-        {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" component={AllProducts} />
+        <Route path="/home" component={AllProducts} />
         <Route path="/products/:id" component={detailedProduct} />
         <Route path="/users/profile" component={UserProfile} />
         <Route path="/users/edit-profile/:userid" component={EditUserProfile} />
@@ -44,7 +42,7 @@ class Routes extends Component {
         <Route path="/api/" component={AllProducts} />
         <Route path="/admin/users" component={AdminUsers} />
         <Route path="/admin/orders" component={AdminOrders} />
-        <Route component={AllProducts} />
+        <Route component={NotFound} />
       </Switch>
     )
   }
