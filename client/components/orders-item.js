@@ -32,6 +32,7 @@ class OrdersItem extends React.Component {
               <OrderProductItem key={product.id} product={product} />
             ))}
             <h3>Total Price: {convertToDollars(order.totalPrice)}</h3>
+            {order.user ? <h3>User: {order.user.email}</h3> : null}
           </div>
         ) : null}
       </div>
