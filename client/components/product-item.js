@@ -21,7 +21,7 @@ const ProductItem = props => {
       </span>
       <Link
         style={{textDecoration: 'underline', color: 'blue'}}
-        to={`/products/detailed-view/${product.id}`}
+        to={`/products/${product.id}`}
       >
         More details
       </Link>
