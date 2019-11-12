@@ -14,21 +14,29 @@ describe('User routes', () => {
   })
 
   describe('/api/users/', () => {
-    const codysEmail = 'cody@puppybook.com'
+    const agent = request.agent(app)
 
-    beforeEach(() => {
-      return User.create({
-        email: codysEmail
+    beforeEach(async () => {
+      await User.create({
+        email: 'cody@email.com',
+        password: 'bones',
+        isAdmin: true
+      })
+      await User.create({
+        email: 'pug@email.com',
+        password: '123'
       })
     })
 
     it('GET /api/users', async () => {
-      const res = await request(app)
-        .get('/api/users')
-        .expect(200)
+      await agent
+        .post('/auth/login')
+        .send({email: 'cody@email.com', password: 'bones'})
+
+      const res = await agent.get('/api/users').expect(200)
 
       expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
+      expect(res.body[0].email).to.be.equal('pug@email.com')
     })
   }) // end describe('/api/users')
 

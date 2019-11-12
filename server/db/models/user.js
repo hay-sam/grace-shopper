@@ -63,6 +63,20 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
+User.getAllUsersExceptMe = function(userId) {
+  return User.findAll({
+    where: {
+      id: {
+        [Sequelize.Op.ne]: userId
+      }
+    },
+    // explicitly select only the id and email fields - even though
+    // users' passwords are encrypted, it won't help if we just
+    // send everything to anyone who asks!
+    attributes: ['id', 'email', 'isAdmin']
+  })
+}
+
 /**
  * hooks
  */
