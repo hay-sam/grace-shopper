@@ -30,6 +30,14 @@ export const editUserThunk = (userId, arg) => async dispatch => {
   }
 }
 
+export const admin = (userId, arg) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/users/edit-profile/${userId}`, arg)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getUserThunk = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/users/${userId}`)
