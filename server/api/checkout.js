@@ -26,7 +26,30 @@ const stripeCheckout = async (req, res, next) => {
   }
 }
 
-router.post('/guest', stripeCheckout, async (req, res, next) => {
+router.post('/stripe', async (req, res, next) => {
+  try {
+    const line_items = req.session.cart.map(item => ({
+      name: item.product.name,
+      description: item.product.description,
+      images: [item.product.imageUrl],
+      amount: item.product.price,
+      currency: 'usd',
+      quantity: item.quantity
+    }))
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      success_url: process.env.SUCCESS_URL || 'http://localhost:8080/cart',
+      cancel_url: process.env.CANCEL_URL || 'http://localhost:8080/cart'
+    })
+    res.status(201).send(session.id)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+router.post('/guest', async (req, res, next) => {
   try {
     const formData = req.body.formData
     const address = `${formData.streetAddress}, ${formData.city}, ${
@@ -45,7 +68,7 @@ router.post('/guest', stripeCheckout, async (req, res, next) => {
       await order.addProduct(product, {through: {quantity: item.quantity}})
     })
     req.session.cart = []
-    res.status(201).send(req.CHECKOUT_SESSION_ID)
+    res.sendStatus(201)
   } catch (error) {
     console.error(error)
   }
@@ -83,7 +106,7 @@ router.post(
         await order.addProduct(product, {through: {quantity: item.quantity}})
       })
       req.session.cart = []
-      res.status(201).send(req.CHECKOUT_SESSION_ID)
+      res.sendStatus(201)
     } catch (error) {
       console.error(error)
     }

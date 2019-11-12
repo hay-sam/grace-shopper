@@ -52,11 +52,10 @@ class Checkout extends React.Component {
         this.state
       )
     }
-    console.log('im the sessionId', sessionId)
+    toast.success('Order Placed Successfully')
     const {error} = await stripe.redirectToCheckout({
       sessionId: sessionId
     })
-    toast.success('Order Placed Successfully')
     this.props.history.push('/products')
   }
   handleChange(event) {
