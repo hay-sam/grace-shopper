@@ -5,6 +5,7 @@ import {guestCheckout, userCheckout, getCart} from '../store/cart'
 import {connect} from 'react-redux'
 import CheckoutItem from './checkout-item'
 import CheckoutForm from './checkout-form'
+import {toast} from 'react-toastify'
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Checkout extends React.Component {
     } else {
       await this.props.guestCheckout(this.state.totalPrice, this.state)
     }
+    toast.success('Order Placed Successfully')
     this.props.history.push('/products')
   }
   handleChange(event) {
