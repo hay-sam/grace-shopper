@@ -74,9 +74,12 @@ class Checkout extends React.Component {
         <h2>Checkout</h2>
         <div className="checkout-split">
           <div className="checkout-form-col">
-            <div className="stripe-button">
+            <div className="stripe-div">
               {!this.props.paymentSuccessful ? (
-                <button onClick={event => this.handleClick(event)}>
+                <button
+                  className="stripe-button"
+                  onClick={event => this.handleClick(event)}
+                >
                   Make Payment With Stripe
                 </button>
               ) : (
