@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {editUserThunk} from '../store/user'
 import {withRouter} from 'react-router-dom'
+import NotFound from './not-found'
 
 class EditProfileForm extends React.Component {
   constructor(props) {
@@ -26,7 +27,9 @@ class EditProfileForm extends React.Component {
   }
 
   render() {
-    return (
+    return !this.props.isLoggedIn ? (
+      <NotFound />
+    ) : (
       <form className="edit-profile-container" onSubmit={this.handleSubmit}>
         <label htmlFor="email">email (required)</label>
         <input
@@ -59,12 +62,12 @@ class EditProfileForm extends React.Component {
   }
 }
 
-// const mapState = state => ({
-//   user: state.user
-// })
+const mapState = state => ({
+  isLoggedIn: !!state.user.id
+})
 
 const mapDispatch = dispatch => ({
   editUserThunk: (arg1, arg2) => dispatch(editUserThunk(arg1, arg2))
 })
 
-export default withRouter(connect(null, mapDispatch)(EditProfileForm))
+export default withRouter(connect(mapState, mapDispatch)(EditProfileForm))

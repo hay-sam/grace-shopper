@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {User, Order, Product} = require('../db/models')
-module.exports = router
 
 //securty check function that will stop the router request if the user is not who they say they are
 const isMeOrAdmin = (req, res, next) => {
@@ -70,3 +69,5 @@ router.get('/:userId/orders', isMeOrAdmin, async (req, res, next) => {
     next(err)
   }
 })
+
+module.exports = router
