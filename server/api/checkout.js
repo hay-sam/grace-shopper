@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {Order, User, Product} = require('../db/models/index')
 
+router.use('/stripe', require('./stripe'))
+
 router.post('/guest', async (req, res, next) => {
   try {
     const formData = req.body.formData
