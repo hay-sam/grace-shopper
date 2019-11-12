@@ -27,8 +27,8 @@ class EditProfileForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="email">email</label>
+      <form className="edit-profile-container" onSubmit={this.handleSubmit}>
+        <label htmlFor="email">email (required)</label>
         <input
           name="email"
           type="email"
@@ -37,7 +37,7 @@ class EditProfileForm extends React.Component {
           required
         />
 
-        <label htmlFor="address">address</label>
+        <label htmlFor="address">address (required)</label>
         <input
           name="address"
           value={this.state.address}
@@ -45,7 +45,7 @@ class EditProfileForm extends React.Component {
           required
         />
 
-        <label htmlFor="phone">phone</label>
+        <label htmlFor="phone">phone (required)</label>
         <input
           name="phone"
           value={this.state.phone}

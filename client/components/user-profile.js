@@ -7,7 +7,7 @@ const UserProfile = props => {
   const {user} = props
 
   return (
-    <div>
+    <div className="profile-container">
       <h2>Hello {user.email}</h2>
       <p>phone: {user.phone ? user.phone : 'No phone on file'}</p>
       <p>address: {user.address ? user.address : 'No address on file'}</p>

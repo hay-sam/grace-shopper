@@ -14,7 +14,7 @@ const initialState = []
  * ACTION CREATORS (exported for testing)
  */
 export const gotProductsAction = productsArr => ({
-  type: 'GET_PRODUCTS',
+  type: GET_PRODUCTS,
   products: productsArr
 })
 
