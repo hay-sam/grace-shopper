@@ -40,12 +40,12 @@ class CartView extends React.Component {
 
   render() {
     return (
-      <div className="cart-view">
+      <div className="cart-view fake-reverse-button">
         <h3>Your Cart</h3>
-        <Link to="/products">Return to Homepage</Link>
+        <Link to="/products">Continue Shopping</Link>
         <div className="cart-content">
           <div className="cart-items-col">
-            <div className="cart-items">
+            <div className="cart-items fake-button">
               {this.props.cart.map(product => {
                 return (
                   <CartItem
@@ -57,7 +57,7 @@ class CartView extends React.Component {
               })}
             </div>
           </div>
-          <div className="cart-info-col">
+          <div className="cart-info-col fake-button">
             <h3>Order Total: {convertToDollars(this.state.totalPrice)}</h3>
             <button onClick={this.handleClick}>Proceed to Checkout</button>
           </div>
