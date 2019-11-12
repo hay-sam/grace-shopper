@@ -7,6 +7,7 @@ import CheckoutItem from './checkout-item'
 import CheckoutForm from './checkout-form'
 import {toast} from 'react-toastify'
 const stripe = Stripe('pk_test_4ZNZp0kgKdPufZzDPz5xjvlw00FxJy57rk')
+import axios from 'axios'
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -39,24 +40,24 @@ class Checkout extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault()
-    let sessionId
+    console.log('before api call')
+    const {data} = await axios.post('/api/cart/checkout/stripe')
     if (this.props.isLoggedIn) {
-      sessionId = await this.props.userCheckout(
+      await this.props.userCheckout(
         this.state.totalPrice,
         this.props.user.id,
         this.state
       )
     } else {
-      sessionId = await this.props.guestCheckout(
-        this.state.totalPrice,
-        this.state
-      )
+      await this.props.guestCheckout(this.state.totalPrice, this.state)
     }
-    toast.success('Order Placed Successfully')
+    console.log('before redirect')
     const {error} = await stripe.redirectToCheckout({
-      sessionId: sessionId
+      sessionId: data.id
     })
+    console.log('after redirect')
     this.props.history.push('/products')
+    toast.success('Order Placed Successfully')
   }
   handleChange(event) {
     this.setState({...this.state, [event.target.name]: event.target.value})
