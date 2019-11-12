@@ -60,7 +60,10 @@ export const deleteProduct = product => {
 
 export const guestCheckout = (totalPrice, formData) => {
   return async function(dispatch) {
-    await axios.post('/api/cart/checkout/guest', {totalPrice, formData})
+    await axios.post('/api/cart/checkout/guest', {
+      totalPrice,
+      formData
+    })
     dispatch(orderPlaced())
   }
 }

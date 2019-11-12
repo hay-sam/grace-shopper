@@ -14,6 +14,15 @@ const CheckoutItem = props => {
         <img className="checkout-item-img" src={product.imageUrl} />
         <div className="checkout-item-info">
           <p>Price: {convertToDollars(product.price * item.quantity)}</p>
+          {item.quantity > 1 ? (
+            <p style={{fontSize: 'small'}}>
+              {' '}
+              Each: {convertToDollars(product.price)}
+            </p>
+          ) : (
+            ''
+          )}
+
           <p>Quantity: {item.quantity}</p>
         </div>
       </div>
