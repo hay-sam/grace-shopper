@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {addToCart} from '../store/cart'
 import convertToDollars from '../../utils/utils'
 import {Link} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 const ProductItem = props => {
   let product = props.product
@@ -10,6 +11,7 @@ const ProductItem = props => {
   const handleClick = event => {
     event.preventDefault()
     props.addToCart({product: product, quantity: 1})
+    toast.success(`${product.name} added to cart!`)
   }
 
   return (
