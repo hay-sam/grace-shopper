@@ -15,7 +15,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <ToastContainer
-        position="top-right"
+        position="bottom-left"
         autoClose={3000}
         closeOnClick
         pauseOnVisibilityChange

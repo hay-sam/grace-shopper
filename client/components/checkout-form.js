@@ -76,7 +76,9 @@ const CheckoutForm = props => {
         />
       </div>
 
-      <button type="submit">Place Order</button>
+      <button style={{margin: '5px 0px 0px 0px'}} type="submit">
+        Place Order
+      </button>
     </form>
   )
 }

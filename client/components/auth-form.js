@@ -10,8 +10,12 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div className="fake-reverse-button">
+      <form
+        style={{display: 'flex', flexDirection: 'column'}}
+        onSubmit={handleSubmit}
+        name={name}
+      >
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -24,7 +28,7 @@ const AuthForm = props => {
           </label>
           <input name="password" type="password" />
         </div>
-        <div>
+        <div className="fake-button">
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}

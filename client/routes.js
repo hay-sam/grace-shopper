@@ -13,6 +13,7 @@ import OrdersView from './components/orders-view'
 import detailedProduct from './components/detailed-product'
 import AdminUsers from './components/admin-users'
 import AdminOrders from './components/admin-orders'
+import Admin from './components/admin'
 
 /**
  * COMPONENT
@@ -44,6 +45,7 @@ class Routes extends Component {
         <Route path="/api/" component={AllProducts} />
         <Route path="/admin/users" component={AdminUsers} />
         <Route path="/admin/orders" component={AdminOrders} />
+        <Route path="/admin" component={Admin} />
         <Route component={AllProducts} />
       </Switch>
     )

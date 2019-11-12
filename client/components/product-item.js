@@ -15,21 +15,16 @@ const ProductItem = props => {
   }
 
   return (
-    <div className="product-item">
+    <div className="product-item fake-button">
       <span className="product-name">{product.name}</span>
       <img className="product-img" src={product.imageUrl} />
       <span className="product-price">
         Price: {convertToDollars(product.price)}
       </span>
-      <Link
-        style={{textDecoration: 'underline', color: 'blue'}}
-        to={`/products/${product.id}`}
-      >
-        More details
-      </Link>
-      <button onClick={handleClick} className="add-to-cart">
-        Add To Cart
-      </button>
+      <div style={{display: 'flex'}}>
+        <Link to={`/products/${product.id}`}>More details</Link>
+        <button onClick={handleClick}>Add To Cart</button>
+      </div>
     </div>
   )
 }

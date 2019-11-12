@@ -28,7 +28,7 @@ class DetailedProduct extends React.Component {
     const {product} = this.props
 
     return (
-      <div className="detailed-product-container">
+      <div className="detailed-product-container fake-button">
         <img className="single-product-img" src={product.imageUrl} />
         <div className="single-product-info">
           <h3 className="single-product-name">{product.name}</h3>

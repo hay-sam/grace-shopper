@@ -27,6 +27,13 @@ form div {
   justify-content: space-around;
 }
 
+.product-name {
+  font-weight: 700;
+  text-decoration: underline;
+  font-size: large;
+  margin-bottom: 5px;
+}
+
 .product-item {
   flex: 0 0 28%;
   border-radius: 5px;
@@ -43,8 +50,8 @@ form div {
 
 .product-img {
   border-radius: 5px;
-  height: 200px;
-  width: 200px;
+  height: 175px;
+  width: 175px;
   object-fit: contain;
   background-color: white;
   padding: 5px;
@@ -250,17 +257,71 @@ form div {
 a {
   color: black;
 }
+
+.admin-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-links a {
+  margin: 8px;
+  padding: 5px;
+  background-color: #3b8ea5;
+  border-radius: 5px;
+  color: white;
+  width: max-content;
+}
+
+.fake-button a {
+  margin: 8px;
+  padding: 5px;
+  background-color: #3b8ea5;
+  border-radius: 5px;
+  color: white;
+  width: max-content;
+  border: 1px solid white;
+  font-size: small;
+}
+
+.fake-reverse-button a {
+  margin: 8px;
+  margin-left: 0px;
+  padding: 5px;
+  border: 1px solid #3b8ea5;
+  background-color: white;
+  border-radius: 5px;
+  color: #3b8ea5;
+  width: max-content;
+  font-size: small;
+}
+
+.fake-reverse-button button {
+  margin: 8px;
+  padding: 5px;
+  border: 1px solid #3b8ea5;
+  background-color: white;
+  border-radius: 5px;
+  color: #3b8ea5;
+  font-size: small;
+}
+
+.fake-button button {
+  margin: 8px;
+  padding: 5px;
+  background-color: #3b8ea5;
+  border-radius: 5px;
+  color: white;
+  width: max-content;
+  border: 1px solid white;
+  font-size: small;
+}
+
 @media (max-width: 765px) {
   .product-item {
     flex: 0 0 40%;
     height: 275px;
     margin: 20px;
     padding: 5px;
-  }
-
-  .product-img {
-    height: 200px;
-    width: 200px;
   }
 }
 
@@ -341,12 +402,6 @@ a {
     height: 275px;
     margin: 20px;
     padding: 5px;
-  }
-
-  .product-img {
-    height: 200px;
-    width: 200px;
-    object-fit: contain;
   }
 }
 
