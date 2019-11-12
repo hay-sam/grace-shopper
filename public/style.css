@@ -95,10 +95,16 @@ form div {
 }
 .cart-item-content {
   display: flex;
+  padding: 10px;
 }
 
 .cart-item-info {
   margin-left: 10px;
+  margin-top: 10px;
+}
+.cart-item-info-line {
+  display: inline;
+  margin: 10px 0px;
 }
 
 .cart-items {
@@ -139,7 +145,20 @@ form div {
 .checkout-items-container {
   overflow-y: auto;
 }
-
+.stripe-div {
+  background-color: #8a51db;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+}
+.stripe-button {
+  font-size: medium;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 3px;
+  margin: 3px;
+}
 .checkout-form-col {
   flex: 0 0 45%;
   margin-right: 10px;

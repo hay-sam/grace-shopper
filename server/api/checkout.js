@@ -1,5 +1,37 @@
 const router = require('express').Router()
 const {Order, User, Product} = require('../db/models/index')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
+
+router.get('/status', (req, res, next) => {
+  if (!req.session.paymentSuccess) {
+    req.session.paymentSuccess = false
+  }
+  res.status(201).send(req.session.paymentSuccess)
+})
+
+router.post('/stripe', async (req, res, next) => {
+  try {
+    const line_items = req.session.cart.map(item => ({
+      name: item.product.name,
+      description: item.product.description,
+      images: [item.product.imageUrl],
+      amount: item.product.price,
+      currency: 'usd',
+      quantity: item.quantity
+    }))
+
+    const checkoutSession = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      success_url: process.env.SUCCESS_URL || 'http://localhost:8080/checkout',
+      cancel_url: process.env.CANCEL_URL || 'http://localhost:8080/cart'
+    })
+    req.session.paymentSuccess = true
+    res.status(201).send(checkoutSession)
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 router.post('/guest', async (req, res, next) => {
   try {
@@ -20,7 +52,8 @@ router.post('/guest', async (req, res, next) => {
       await order.addProduct(product, {through: {quantity: item.quantity}})
     })
     req.session.cart = []
-    res.status(201).send()
+    req.session.paymentSuccess = null
+    res.sendStatus(201)
   } catch (error) {
     console.error(error)
   }
@@ -54,7 +87,8 @@ router.post('/user/:userId', isSameUser, async (req, res, next) => {
       await order.addProduct(product, {through: {quantity: item.quantity}})
     })
     req.session.cart = []
-    res.status(201).send()
+    req.session.paymentSuccess = null
+    res.sendStatus(201)
   } catch (error) {
     console.error(error)
   }

@@ -28,10 +28,15 @@ const CartItem = props => {
       <div className="cart-item-content">
         <img className="cart-item-img" src={product.imageUrl} />
         <div className="cart-item-info">
-          <span>Price: {convertToDollars(product.price)}</span>
-          <div style={{display: 'flex'}}>
-            <label name="quantity">Quantity:</label>
+          <p style={{paddingBottom: '10px', margin: '10px 0px'}}>
+            Price: {convertToDollars(product.price)}
+          </p>
+          <div className="cart-item-info-line" style={{display: 'flex'}}>
+            <label name="quantity" style={{display: 'inline'}}>
+              Quantity:{' '}
+            </label>
             <select
+              style={{display: 'inline'}}
               name="quantity"
               onChange={handleChange}
               defaultValue={item.quantity}
@@ -48,7 +53,9 @@ const CartItem = props => {
               <option value={10}>10</option>
             </select>
           </div>
-          <button onClick={handleDelete}>Remove Item</button>
+          <button className="cart-item-info-line" onClick={handleDelete}>
+            Remove Item
+          </button>
         </div>
       </div>
     </div>

@@ -6,6 +6,9 @@ import {connect} from 'react-redux'
 import CheckoutItem from './checkout-item'
 import CheckoutForm from './checkout-form'
 import {toast} from 'react-toastify'
+import {getPaymentStatus} from '../store/payment'
+const stripe = Stripe('pk_test_4ZNZp0kgKdPufZzDPz5xjvlw00FxJy57rk')
+import axios from 'axios'
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -22,10 +25,12 @@ class Checkout extends React.Component {
       zipcode: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   async componentDidMount() {
     await this.props.getCart()
+    await this.props.getPaymentStatus()
     this.calculateTotalPrice()
   }
   calculateTotalPrice() {
@@ -38,6 +43,7 @@ class Checkout extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault()
+    event.target.disabled = true
     if (this.props.isLoggedIn) {
       await this.props.userCheckout(
         this.state.totalPrice,
@@ -47,11 +53,19 @@ class Checkout extends React.Component {
     } else {
       await this.props.guestCheckout(this.state.totalPrice, this.state)
     }
-    toast.success('Order Placed Successfully')
     this.props.history.push('/products')
+    toast.success('Order Placed Successfully')
   }
   handleChange(event) {
     this.setState({...this.state, [event.target.name]: event.target.value})
+  }
+
+  async handleClick(event) {
+    event.preventDefault()
+    const {data} = await axios.post('/api/cart/checkout/stripe')
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: data.id
+    })
   }
   render() {
     return (
@@ -60,11 +74,30 @@ class Checkout extends React.Component {
         <h2>Checkout</h2>
         <div className="checkout-split">
           <div className="checkout-form-col">
-            <CheckoutForm
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-              state={this.state}
-            />
+            <div className="stripe-div">
+              {!this.props.paymentSuccessful ? (
+                <button
+                  className="stripe-button"
+                  onClick={event => this.handleClick(event)}
+                >
+                  Make Payment With Stripe
+                </button>
+              ) : (
+                <span>Payment Processed Successfully!</span>
+              )}
+            </div>
+            {this.props.paymentSuccessful ? (
+              <div>
+                <span>Enter your Shipping Information:</span>
+                <CheckoutForm
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  state={this.state}
+                />
+              </div>
+            ) : (
+              ''
+            )}
             <h3>Order total: {convertToDollars(this.state.totalPrice)}</h3>
           </div>
 
@@ -85,14 +118,16 @@ class Checkout extends React.Component {
 const mapStateToProps = state => ({
   isLoggedIn: !!state.user.id,
   cart: state.cart,
-  user: state.user
+  user: state.user,
+  paymentSuccessful: !!state.paymentStatus
 })
 const mapDispatchToProps = dispatch => ({
   guestCheckout: (totalPrice, formData) =>
     dispatch(guestCheckout(totalPrice, formData)),
   userCheckout: (totalPrice, id, formData) =>
     dispatch(userCheckout(totalPrice, id, formData)),
-  getCart: () => dispatch(getCart())
+  getCart: () => dispatch(getCart()),
+  getPaymentStatus: () => dispatch(getPaymentStatus())
 })
 
 export default withRouter(
