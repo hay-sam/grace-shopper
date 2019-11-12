@@ -1,5 +1,6 @@
 const {expect} = require('chai')
 const session = require('supertest-session')
+const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
 const User = db.model('user')
@@ -22,11 +23,18 @@ const address = `${formData.streetAddress}, ${formData.city}, ${
 let testSession
 let allProducts
 
-describe('Checkout routes', async () => {
+describe('Checkout routes', () => {
+  let agent
+
   beforeEach(async () => {
     try {
       await db.sync({force: true})
       await Promise.all([
+        User.create({
+          email: 'cody@email.com',
+          password: 'bones',
+          isAdmin: true
+        }),
         Product.create({
           name: 'Unicorn Puffs',
           description:
@@ -55,7 +63,12 @@ describe('Checkout routes', async () => {
             'https://images-na.ssl-images-amazon.com/images/I/81iMOFYh7RL._SY550_.jpg'
         })
       ])
+
       testSession = session(app)
+      await testSession
+        .post('/auth/login')
+        .send({email: 'cody@email.com', password: 'bones'})
+
       allProducts = await testSession.get('/api/products').expect(200)
 
       let cartProducts = [
@@ -94,7 +107,7 @@ describe('Checkout routes', async () => {
     }
   })
 
-  describe('api/cart/checkout/guest', () => {
+  describe('api/cart/checkout/guest', async () => {
     it('clears the cart', async () => {
       let res1 = await testSession.get('/api/cart').expect(200)
       expect(res1.body).to.be.an('array')
