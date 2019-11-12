@@ -481,3 +481,14 @@ a {
   padding: 32px;
   border-radius: 16px;
 }
+
+.not-found {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lost-img {
+  width: 400px;
+  height: 400px;
+}

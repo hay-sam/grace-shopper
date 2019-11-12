@@ -2,15 +2,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getOrders} from '../store/orders'
 import OrdersItem from './orders-item'
+import NotFound from './not-found'
 
 class OrdersView extends React.Component {
   componentDidMount() {
-    this.props.getOrders(this.props.match.params.userId)
+    const userId = this.props.match.params.userId
+    this.props.getOrders(userId)
   }
 
   render() {
     const orders = this.props.orders
-    return (
+    return !this.props.isLoggedIn ? (
+      <NotFound />
+    ) : (
       <div className="orders-view">
         <h1>Order History</h1>
         {orders.map(order => {
@@ -22,7 +26,8 @@ class OrdersView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  orders: state.orders
+  orders: state.orders,
+  isLoggedIn: !!state.user.id
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,8 +1,10 @@
 import React from 'react'
-import {withRoute, Redirect, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import NotFound from './not-found'
 
-const admin = () => {
-  return (
+const admin = props => {
+  return props.isAdmin ? (
     <div>
       <h1>Welcome Administrator!</h1>
       <div className="admin-links">
@@ -10,7 +12,15 @@ const admin = () => {
         <Link to="/admin/orders">View All Orders</Link>
       </div>
     </div>
+  ) : (
+    <NotFound />
   )
 }
 
-export default admin
+const mapState = state => ({
+  isAdmin: !!state.user.isAdmin
+})
+
+const connectedAdmin = connect(mapState, null)(admin)
+
+export default connectedAdmin

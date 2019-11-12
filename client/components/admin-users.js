@@ -2,6 +2,7 @@ import React from 'react'
 import {getUsers} from '../store/users'
 import {connect} from 'react-redux'
 import AdminUsersItem from './admin-users-item'
+import NotFound from './not-found'
 
 class AdminUsers extends React.Component {
   componentDidMount() {
@@ -9,7 +10,9 @@ class AdminUsers extends React.Component {
   }
 
   render() {
-    return (
+    return !this.props.isAdmin ? (
+      <NotFound />
+    ) : (
       <div>
         {this.props.users.map(user => (
           <AdminUsersItem key={user.id} user={user} />
@@ -20,7 +23,8 @@ class AdminUsers extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  isAdmin: !!state.user.isAdmin
 })
 
 const mapDispatchToProps = dispatch => ({
