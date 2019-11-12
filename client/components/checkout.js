@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import CheckoutItem from './checkout-item'
 import CheckoutForm from './checkout-form'
 import {toast} from 'react-toastify'
+const stripe = Stripe('pk_test_4ZNZp0kgKdPufZzDPz5xjvlw00FxJy57rk')
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -38,15 +39,23 @@ class Checkout extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault()
+    let sessionId
     if (this.props.isLoggedIn) {
-      await this.props.userCheckout(
+      sessionId = await this.props.userCheckout(
         this.state.totalPrice,
         this.props.user.id,
         this.state
       )
     } else {
-      await this.props.guestCheckout(this.state.totalPrice, this.state)
+      sessionId = await this.props.guestCheckout(
+        this.state.totalPrice,
+        this.state
+      )
     }
+    console.log('im the sessionId', sessionId)
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: sessionId
+    })
     toast.success('Order Placed Successfully')
     this.props.history.push('/products')
   }
