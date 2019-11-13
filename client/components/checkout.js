@@ -86,7 +86,7 @@ class Checkout extends React.Component {
                 <span>Payment Processed Successfully!</span>
               )}
             </div>
-            {!this.props.paymentSuccessful ? (
+            {this.props.paymentSuccessful ? (
               <div className="fake-reverse-button">
                 <span>Enter your Shipping Information:</span>
                 <CheckoutForm
